@@ -74,7 +74,7 @@ def format_featuring(artists):
 def format_title(title):
     exceptions = {
         "a", "an", "the",
-        "and", "but", "or", "nor", "for", "so", "yet",
+        "and", "but", "or", "nor", "for", "so", "yet", "as"
         "at", "by", "in", "of", "on", "to", "up", "with"
     }
     words = title.split()
