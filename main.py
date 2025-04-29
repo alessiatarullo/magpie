@@ -47,6 +47,14 @@ def show_files():
                 
                 row += 1
 
+def clean_filename(text):
+    if not text:
+        return text
+    invalid_chars = r'\/:*?"<>|'
+    for char in invalid_chars:
+        text = text.replace(char, '_')
+    return text
+
 def is_audio_file(filename):
     return filename.lower().endswith(audio_extensions)
 
@@ -174,11 +182,10 @@ def rename_from_metadata():
             track = track if track else "00"
             album = album if album else "Unknown Album"
 
-            invalid_chars = r'\/:*?"<>|'
-            artist = ''.join(c for c in artist if c not in invalid_chars)
-            title = ''.join(c for c in title if c not in invalid_chars)
-            album = ''.join(c for c in album if c not in invalid_chars)
-            featuring_artists = [''.join(c for c in f if c not in invalid_chars) for f in featuring_artists]
+            artist = clean_filename(artist)
+            title = clean_filename(title)
+            album = clean_filename(album)
+            featuring_artists = [clean_filename(f) for f in featuring_artists]
 
             # Controlla se questo file deve essere formattato in Title Case
             if file in checkbox_vars and checkbox_vars[file].get():
