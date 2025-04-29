@@ -174,11 +174,11 @@ def rename_from_metadata():
             track = track if track else "00"
             album = album if album else "Unknown Album"
 
-            artist = "".join(c for c in artist if c.isalnum() or c in (' ', '-', '_'))
-            title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_'))
-            album = "".join(c for c in album if c.isalnum() or c in (' ', '-', '_'))
-            featuring_artists = ["".join(c for c in f if c.isalnum() or c in (' ', '-', '_')) 
-                               for f in featuring_artists]
+            invalid_chars = r'\/:*?"<>|'
+            artist = ''.join(c for c in artist if c not in invalid_chars)
+            title = ''.join(c for c in title if c not in invalid_chars)
+            album = ''.join(c for c in album if c not in invalid_chars)
+            featuring_artists = [''.join(c for c in f if c not in invalid_chars) for f in featuring_artists]
 
             # Controlla se questo file deve essere formattato in Title Case
             if file in checkbox_vars and checkbox_vars[file].get():
